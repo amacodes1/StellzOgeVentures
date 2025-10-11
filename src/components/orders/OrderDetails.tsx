@@ -120,6 +120,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId, onBack }) => {
           <button
             onClick={onBack}
             className="mr-4 text-gray-500 hover:text-gray-700"
+            title="Go back"
           >
             <ArrowLeftIcon className="h-5 w-5" />
           </button>
@@ -329,7 +330,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId, onBack }) => {
                   <div key={item.id} className="flex items-center">
                     <div className="w-16 h-16 flex-shrink-0">
                       <img
-                        src={item.image || "https://via.placeholder.com/150"}
+                        src="https://via.placeholder.com/150"
                         alt={item.name}
                         className="w-full h-full object-cover rounded-md"
                       />
