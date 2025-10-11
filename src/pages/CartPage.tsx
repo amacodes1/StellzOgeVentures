@@ -150,6 +150,7 @@ const CartPage: React.FC = () => {
                             {item.bulkPrice && (
                               <div className="mt-1">
                                 <select
+                                  title="Select bulk pricing tier"
                                   className="text-sm border border-gray-300 rounded-md p-1 focus:outline-none focus:ring-2 focus:ring-emerald-600"
                                   value={item.selectedBulkPrice?.tier || ""}
                                   onChange={(e) => {
@@ -215,6 +216,7 @@ const CartPage: React.FC = () => {
                             -
                           </button>
                           <input
+                            title="number"
                             type="number"
                             className="w-12 text-center border-y border-gray-300 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-600"
                             value={item.quantity}
@@ -358,8 +360,15 @@ const CartPage: React.FC = () => {
               Give your cart a name to save it for later. You can access saved
               carts from your account.
             </p>
+            <label
+              htmlFor="cart-name"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Cart Name
+            </label>
             <input
               type="text"
+              id="cart-name"
               className="w-full border border-gray-300 rounded-md px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-emerald-600"
               placeholder="e.g., Office Supplies"
               value={saveCartName}

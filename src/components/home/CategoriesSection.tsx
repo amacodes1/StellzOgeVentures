@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
@@ -13,43 +13,72 @@ import {
 
 const CategoriesSection: React.FC = () => {
   const { products } = useSelector((state: RootState) => state.product);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollButtons = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
+    }
+  };
+
+  useEffect(() => {
+    checkScrollButtons();
+  }, []);
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+      setTimeout(checkScrollButtons, 300);
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+      setTimeout(checkScrollButtons, 300);
+    }
+  };
   
   const categories = [
     {
       name: "Office Furniture",
       icon: <ShoppingBagIcon className="h-8 w-8" />,
       count: products.filter((p) => p.category === "Office Furniture").length,
-      color: "bg-blue-600",
+      color: "bg-blue-400",
     },
     {
       name: "Electronics",
       icon: <ComputerIcon className="h-8 w-8" />,
       count: products.filter((p) => p.category === "Electronics").length,
-      color: "bg-purple-600",
+      color: "bg-fuchsia-400",
     },
     {
       name: "Office Supplies",
       icon: <FileTextIcon className="h-8 w-8" />,
       count: products.filter((p) => p.category === "Office Supplies").length,
-      color: "bg-green-600",
+      color: "bg-emerald-400",
     },
     {
       name: "Office Accessories",
       icon: <ClipboardIcon className="h-8 w-8" />,
       count: products.filter((p) => p.category === "Office Accessories").length,
-      color: "bg-orange-600",
+      color: "bg-orange-400",
     },
     {
       name: "Stationery",
       icon: <FileTextIcon className="h-8 w-8" />,
       count: 25,
-      color: "bg-pink-600",
+      color: "bg-pink-400",
     },
     {
       name: "Storage",
       icon: <ShoppingBagIcon className="h-8 w-8" />,
       count: 18,
-      color: "bg-indigo-600",
+      color: "bg-indigo-400",
     },
   ];
 
@@ -61,27 +90,33 @@ const CategoriesSection: React.FC = () => {
             Shop by Category
           </h2>
           <div className="flex space-x-2">
-            <button
-              title="left"
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
-            >
-              <ChevronLeftIcon className="h-5 w-5" />
-            </button>
-            <button
-              title="right"
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
-            >
-              <ChevronRightIcon className="h-5 w-5" />
-            </button>
+            {canScrollLeft && (
+              <button
+                title="left"
+                onClick={scrollLeft}
+                className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+              >
+                <ChevronLeftIcon className="h-5 w-5" />
+              </button>
+            )}
+            {canScrollRight && (
+              <button
+                title="right"
+                onClick={scrollRight}
+                className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+              >
+                <ChevronRightIcon className="h-5 w-5" />
+              </button>
+            )}
           </div>
         </div>
-        <div className="overflow-x-auto">
-          <div className="flex md:grid md:grid-cols-3 lg:grid-cols-6 gap-4 pb-4">
+        <div className="overflow-x-auto scrollbar-hide" ref={scrollRef}>
+          <div className="flex gap-4">
             {categories.map((category) => (
               <Link
                 key={category.name}
                 to={`/shop?category=${encodeURIComponent(category.name)}`}
-                className="group flex-shrink-0 w-64 md:w-auto"
+                className="group flex-shrink-0 w-64"
               >
                 <div
                   className={`rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow duration-300 ${category.color} text-white`}
