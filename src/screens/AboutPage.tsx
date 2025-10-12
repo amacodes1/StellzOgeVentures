@@ -176,7 +176,7 @@ const AboutPage: React.FC = () => {
             <Button variant="secondary" size="lg">
               <Link to="/shop">Browse Our Products</Link>
             </Button>
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-emerald-800" size="lg">
+            <Button variant="white-outline" size="lg">
               <Link to="/contact">Contact Our Team</Link>
             </Button>
           </div>

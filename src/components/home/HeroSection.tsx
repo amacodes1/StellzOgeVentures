@@ -17,7 +17,7 @@ const HeroSection: React.FC = () => {
       <div className="relative z-10 w-full">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center min-h-[60vh]">
-            <div className="md:col-span-5 text-white">
+            <div className="col-span-2 md:col-span-6 text-white">
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 Wholesale Solutions for Your Business
               </h1>
@@ -26,10 +26,10 @@ const HeroSection: React.FC = () => {
                 Perfect for retailers, offices, and business needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="bg-secondary-500 hover:bg-secondary-600 text-white px-8 py-3 text-lg font-semibold">
+                <Button variant="secondary" size="lg" className="font-semibold">
                   <Link to="/shop">Shop Now</Link>
                 </Button>
-                <Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-900 px-8 py-3 text-lg font-semibold">
+                <Button variant="white-outline" size="lg" className="font-semibold">
                   <Link to="/contact">Request a Quote</Link>
                 </Button>
               </div>

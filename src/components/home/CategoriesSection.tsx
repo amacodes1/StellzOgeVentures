@@ -48,37 +48,37 @@ const CategoriesSection: React.FC = () => {
       name: "Office Furniture",
       icon: <ShoppingBagIcon className="h-8 w-8" />,
       count: products.filter((p) => p.category === "Office Furniture").length,
-      color: "bg-blue-400",
+      color: "bg-blue-100",
     },
     {
       name: "Electronics",
       icon: <ComputerIcon className="h-8 w-8" />,
       count: products.filter((p) => p.category === "Electronics").length,
-      color: "bg-fuchsia-400",
+      color: "bg-fuchsia-100",
     },
     {
       name: "Office Supplies",
       icon: <FileTextIcon className="h-8 w-8" />,
       count: products.filter((p) => p.category === "Office Supplies").length,
-      color: "bg-emerald-400",
+      color: "bg-emerald-100",
     },
     {
       name: "Office Accessories",
       icon: <ClipboardIcon className="h-8 w-8" />,
       count: products.filter((p) => p.category === "Office Accessories").length,
-      color: "bg-orange-400",
+      color: "bg-orange-100",
     },
     {
       name: "Stationery",
       icon: <FileTextIcon className="h-8 w-8" />,
       count: 25,
-      color: "bg-pink-400",
+      color: "bg-pink-100",
     },
     {
       name: "Storage",
       icon: <ShoppingBagIcon className="h-8 w-8" />,
       count: 18,
-      color: "bg-indigo-400",
+      color: "bg-indigo-100",
     },
   ];
 
@@ -122,12 +122,12 @@ const CategoriesSection: React.FC = () => {
                   className={`rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow duration-300 ${category.color} text-white`}
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="text-white">{category.icon}</div>
+                    <div className="text-blue-950">{category.icon}</div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-white text-base">
+                      <h3 className="font-semibold text-blue-950 text-base">
                         {category.name}
                       </h3>
-                      <p className="text-sm text-white opacity-80">
+                      <p className="text-sm text-blue-950 opacity-80">
                         {category.count} items
                       </p>
                     </div>

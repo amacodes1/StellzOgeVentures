@@ -1,7 +1,7 @@
 import React from 'react';
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline' | 'text';
+  variant?: 'primary' | 'secondary' | 'outline' | 'text' | 'cream' | 'white-outline';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   onClick?: () => void;
@@ -21,10 +21,17 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
   const variantClasses = {
-    primary: 'bg-primary-700 text-white hover:bg-primary-800 focus:ring-primary-600',
-    secondary: 'bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-secondary-500',
-    outline: 'border border-primary-700 text-primary-700 hover:bg-primary-50 focus:ring-primary-600',
-    text: 'text-primary-700 hover:bg-primary-50 focus:ring-primary-600'
+    primary:
+      "bg-primary-700 text-white hover:bg-primary-800 focus:ring-primary-600",
+    secondary:
+      "bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-secondary-500",
+    outline:
+      "border border-primary-700 text-primary-700 hover:bg-primary-700 hover:text-[#FFF9ED] focus:ring-primary-600",
+    text: "text-primary-700 hover:bg-primary-50 focus:ring-primary-600",
+    cream:
+      "bg-[#FFF9ED] text-primary-900 hover:bg-[#FFF9ED] hover:text-primary-900 focus:ring-primary-600",
+    "white-outline":
+      "bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-900 focus:ring-white",
   };
   const sizeClasses = {
     sm: 'text-sm px-3 py-1.5',

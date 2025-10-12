@@ -1,4 +1,4 @@
-// src/pages/ForbiddenPage.tsx
+// src/screens/ForbiddenPage.tsx
 import { Link } from "react-router-dom";
 import { LockIcon } from "lucide-react";
 
