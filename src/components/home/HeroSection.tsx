@@ -17,7 +17,7 @@ const HeroSection: React.FC = () => {
       <div className="relative z-10 w-full">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center min-h-[60vh]">
-            <div className="col-span-2 md:col-span-6 text-white">
+            <div className="col-span-2 md:col-span-6 text-[#FFF9ED]">
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 Wholesale Solutions for Your Business
               </h1>

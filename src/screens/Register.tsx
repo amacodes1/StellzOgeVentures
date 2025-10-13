@@ -6,23 +6,21 @@ import { toast } from "sonner";
 import { AlertCircleIcon } from "lucide-react";
 import Button from "../components/ui/Button";
 import { RootState } from "../store/store";
+import { registerSchema, RegisterFormData } from "../schemas/authSchemas";
+import { ZodError } from "zod";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<RegisterFormData>({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
     agreeTerms: false,
   });
+  const [formErrors, setFormErrors] = useState<Partial<RegisterFormData>>({});
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
-  const [formErrors, setFormErrors] = useState({
-    password: "",
-    confirmPassword: "",
-    terms: "",
-  });
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -33,56 +31,35 @@ const Register = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    // Clear specific error when field is changed
-    if (Object.keys(formErrors).includes(name)) {
-      setFormErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
+    if (formErrors[name as keyof RegisterFormData]) {
+      setFormErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
-  const validateForm = () => {
-    let valid = true;
-    const errors = {
-      password: "",
-      confirmPassword: "",
-      terms: "",
-    };
-    // Password validation
-    if (formData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
-      valid = false;
-    }
-    // Confirm password
-    if (formData.password !== formData.confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
-      valid = false;
-    }
-    // Terms agreement
-    if (!formData.agreeTerms) {
-      errors.terms = "You must agree to the Terms of Service";
-      valid = false;
-    }
-    setFormErrors(errors);
-    return valid;
-  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
     try {
+      const validatedData = registerSchema.parse(formData);
+      setFormErrors({});
       await dispatch(
         register({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
+          name: validatedData.name,
+          email: validatedData.email,
+          password: validatedData.password,
         }) as any
       );
       navigate("/account");
       toast.success("Registration successful!");
     } catch (error) {
-      // Error is handled in the reducer
+      if (error instanceof ZodError) {
+        const errors: Partial<RegisterFormData> = {};
+        error.errors.forEach(err => {
+          if (err.path[0]) {
+            errors[err.path[0] as keyof RegisterFormData] = err.message;
+          }
+        });
+        setFormErrors(errors);
+      }
     }
   };
   return (
@@ -111,9 +88,14 @@ const Register = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+            className={`w-full border ${
+              formErrors.name ? "border-red-500" : "border-gray-300"
+            } rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600`}
             required
           />
+          {formErrors.name && (
+            <p className="mt-1 text-sm text-red-600">{formErrors.name}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -128,9 +110,14 @@ const Register = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+            className={`w-full border ${
+              formErrors.email ? "border-red-500" : "border-gray-300"
+            } rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600`}
             required
           />
+          {formErrors.email && (
+            <p className="mt-1 text-sm text-red-600">{formErrors.email}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -187,7 +174,7 @@ const Register = () => {
               checked={formData.agreeTerms}
               onChange={handleChange}
               className={`h-4 w-4 text-emerald-600 focus:ring-emerald-500 ${
-                formErrors.terms ? "border-red-500" : ""
+                formErrors.agreeTerms ? "border-red-500" : ""
               }`}
             />
             <label htmlFor="agreeTerms" className="ml-2 text-sm text-gray-700">
@@ -201,8 +188,8 @@ const Register = () => {
               </a>
             </label>
           </div>
-          {formErrors.terms && (
-            <p className="mt-1 text-sm text-red-600">{formErrors.terms}</p>
+          {formErrors.agreeTerms && (
+            <p className="mt-1 text-sm text-red-600">{formErrors.agreeTerms}</p>
           )}
         </div>
         <Button type="submit" variant="primary" fullWidth disabled={loading}>

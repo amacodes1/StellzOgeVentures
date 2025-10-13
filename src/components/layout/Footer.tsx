@@ -4,7 +4,7 @@ import { FacebookIcon, TwitterIcon, InstagramIcon, LinkedinIcon, MailIcon, Phone
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-secondary-500 text-white">
+    <footer className="bg-secondary-500 text-[#FFF9ED]">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -44,7 +44,10 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-white hover:opacity-80">
+                <Link
+                  to="/contact"
+                  className="hover:text-white hover:opacity-80"
+                >
                   Contact Us
                 </Link>
               </li>
@@ -54,7 +57,10 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/account" className="hover:text-white hover:opacity-80">
+                <Link
+                  to="/account"
+                  className="hover:text-white hover:opacity-80"
+                >
                   My Account
                 </Link>
               </li>
@@ -65,22 +71,34 @@ const Footer: React.FC = () => {
             <h3 className="text-xl font-bold mb-4">Categories</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/shop?category=Office Furniture" className="hover:text-white hover:opacity-80">
+                <Link
+                  to="/shop?category=Office Furniture"
+                  className="hover:text-white hover:opacity-80"
+                >
                   Office Furniture
                 </Link>
               </li>
               <li>
-                <Link to="/shop?category=Office Supplies" className="hover:text-white hover:opacity-80">
+                <Link
+                  to="/shop?category=Office Supplies"
+                  className="hover:text-white hover:opacity-80"
+                >
                   Office Supplies
                 </Link>
               </li>
               <li>
-                <Link to="/shop?category=Electronics" className="hover:text-white hover:opacity-80">
+                <Link
+                  to="/shop?category=Electronics"
+                  className="hover:text-white hover:opacity-80"
+                >
                   Electronics
                 </Link>
               </li>
               <li>
-                <Link to="/shop?category=Office Accessories" className="hover:text-white hover:opacity-80">
+                <Link
+                  to="/shop?category=Office Accessories"
+                  className="hover:text-white hover:opacity-80"
+                >
                   Office Accessories
                 </Link>
               </li>
@@ -109,7 +127,8 @@ const Footer: React.FC = () => {
         </div>
         <div className="border-t border-secondary-400 mt-8 pt-8 text-center">
           <p>
-            &copy; {new Date().getFullYear()} StellzOgeVentures. All rights reserved.
+            &copy; {new Date().getFullYear()} StellzOgeVentures. All rights
+            reserved.
           </p>
         </div>
       </div>

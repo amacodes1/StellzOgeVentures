@@ -6,12 +6,15 @@ import { login } from "../store/slices/authSlice";
 import { toast } from "sonner";
 import { AlertCircleIcon } from "lucide-react";
 import Button from "../components/ui/Button";
+import { loginSchema, LoginFormData } from "../schemas/authSchemas";
+import { ZodError } from "zod";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
   });
+  const [formErrors, setFormErrors] = useState<Partial<LoginFormData>>({});
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
@@ -21,15 +24,28 @@ const Login = () => {
       ...prev,
       [name]: value,
     }));
+    if (formErrors[name as keyof LoginFormData]) {
+      setFormErrors(prev => ({ ...prev, [name]: undefined }));
+    }
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await dispatch(login(formData) as any);
+      const validatedData = loginSchema.parse(formData);
+      setFormErrors({});
+      await dispatch(login(validatedData) as any);
       navigate("/account");
       toast.success("Login successful!");
     } catch (error) {
-      // Error is handled in the reducer
+      if (error instanceof ZodError) {
+        const errors: Partial<LoginFormData> = {};
+        error.errors.forEach(err => {
+          if (err.path[0]) {
+            errors[err.path[0] as keyof LoginFormData] = err.message;
+          }
+        });
+        setFormErrors(errors);
+      }
     }
   };
   // Demo account buttons
@@ -73,9 +89,14 @@ const Login = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+            className={`w-full border ${
+              formErrors.email ? "border-red-500" : "border-gray-300"
+            } rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600`}
             required
           />
+          {formErrors.email && (
+            <p className="mt-1 text-sm text-red-600">{formErrors.email}</p>
+          )}
         </div>
         <div className="mb-6">
           <label
@@ -90,9 +111,14 @@ const Login = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+            className={`w-full border ${
+              formErrors.password ? "border-red-500" : "border-gray-300"
+            } rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600`}
             required
           />
+          {formErrors.password && (
+            <p className="mt-1 text-sm text-red-600">{formErrors.password}</p>
+          )}
         </div>
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center">
