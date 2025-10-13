@@ -53,12 +53,12 @@ const DesktopNavigation: React.FC = () => {
           
           <div className="flex justify-center space-x-3 lg:space-x-4">
             <Link to="/track-order" className="flex items-center text-gray-700 hover:text-secondary-500 font-medium">
-              <TruckIcon className="h-4 w-4 mr-1" />
-              <span className="hidden lg:inline">Track Order</span>
+              <TruckIcon className="h-3 w-3 mr-1" />
+              <span className="hidden text-[13px] lg:inline">Track Order</span>
             </Link>
             <Link to="/help" className="flex items-center text-gray-700 hover:text-secondary-500 font-medium">
-              <LifeBuoyIcon className="h-4 w-4 mr-1" />
-              <span className="hidden lg:inline">Help</span>
+              <LifeBuoyIcon className="h-3 w-3 mr-1" />
+              <span className="hidden text-[13px] lg:inline">Help</span>
             </Link>
           </div>
         </div>
