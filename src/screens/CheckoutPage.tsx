@@ -149,7 +149,7 @@ const CheckoutPage: React.FC = () => {
   if (items.length === 0) {
     return (
       <div className="bg-gray-50 py-12">
-        <div className="container mx-auto px-4 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Your cart is empty</h2>
           <p className="text-gray-600 mb-8">
             You need to add items to your cart before proceeding to checkout.
@@ -163,7 +163,7 @@ const CheckoutPage: React.FC = () => {
   }
   return (
     <div className="bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold mb-8">Checkout</h1>
         <CheckoutProgress step={step} />
         {error && (

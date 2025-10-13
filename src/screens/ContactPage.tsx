@@ -44,7 +44,7 @@ const ContactPage: React.FC = () => {
   return <div className="bg-gray-50">
       {/* Hero Section */}
       <section className="bg-emerald-800 text-white py-16">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
             <p className="text-xl">
@@ -55,7 +55,7 @@ const ContactPage: React.FC = () => {
       </section>
       {/* Contact Information */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div>
@@ -207,7 +207,7 @@ const ContactPage: React.FC = () => {
       </section>
       {/* FAQ Section */}
       <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-2xl font-bold mb-8 text-center">
               Frequently Asked Questions

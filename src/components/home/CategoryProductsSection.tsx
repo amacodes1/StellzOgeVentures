@@ -17,9 +17,11 @@ const CategoryProductsSection: React.FC<CategoryProductsSectionProps> = ({
 
   return (
     <section className={`py-16 ${backgroundColor}`}>
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-primary-900">{categoryName}</h2>
+          <h2 className="text-3xl font-bold text-primary-900">
+            {categoryName}
+          </h2>
           <Link
             to={`/shop?category=${categoryName}`}
             className="text-secondary-600 hover:text-secondary-700 font-medium"

@@ -8,7 +8,7 @@ const CallToActionSection: React.FC = () => {
       className="py-20 text-primary-900 bg-[#FFF9ED]"
       // style={{ backgroundColor: "rgb(255 249 237)" }}
     >
-      <div className="container mx-auto px-4 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-4xl font-bold mb-6">
           Ready to Stock Your Business?
         </h2>

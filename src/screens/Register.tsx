@@ -63,7 +63,7 @@ const Register = () => {
     }
   };
   return (
-    <div className="max-w-md mx-auto my-14">
+    <div className="max-w-md mx-auto my-14 px-4 sm:px-6 lg:px-8">
       <h2 className="text-2xl font-bold mb-6 text-center">Create an Account</h2>
       {error && (
         <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded flex items-center">

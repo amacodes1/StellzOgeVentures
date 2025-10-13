@@ -29,7 +29,7 @@ const ProductDetailPage: React.FC = () => {
   } | null>(null);
   if (!product) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
         <h2 className="text-2xl font-bold mb-4">Product Not Found</h2>
         <p className="mb-8">
           The product you are looking for does not exist or has been removed.
@@ -129,7 +129,7 @@ const ProductDetailPage: React.FC = () => {
     : 0;
   return (
     <div className="bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="flex mb-8 text-sm">
           <Link to="/" className="text-gray-500 hover:text-emerald-700">

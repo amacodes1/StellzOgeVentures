@@ -102,7 +102,7 @@ const FaqPage: React.FC = () => {
   return <div className="bg-gray-50">
       {/* Hero Section */}
       <section className="bg-emerald-800 text-white py-16">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl font-bold mb-6">
               Frequently Asked Questions
@@ -116,7 +116,7 @@ const FaqPage: React.FC = () => {
       </section>
       {/* FAQ Content */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             {/* Search Bar */}
             <div className="mb-8">
@@ -168,7 +168,7 @@ const FaqPage: React.FC = () => {
       </section>
       {/* Still Have Questions */}
       <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Still Have Questions?</h2>
             <p className="text-gray-700 mb-8">

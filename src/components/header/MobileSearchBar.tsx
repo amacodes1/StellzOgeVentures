@@ -13,7 +13,7 @@ const MobileSearchBar: React.FC<MobileSearchBarProps> = ({
   handleSearch,
 }) => {
   return (
-    <div className="md:hidden bg-white border-b px-4 py-2">
+    <div className="sm:hidden bg-white border-b px-4 py-2">
       <form onSubmit={handleSearch}>
         <div className="relative">
           <input

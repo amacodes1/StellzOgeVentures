@@ -5,7 +5,7 @@ import Button from "../ui/Button";
 const BulkPricingBanner: React.FC = () => {
   return (
     <section className="bg-secondary-500 py-16">
-      <div className="container mx-auto px-4 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-4xl text-[#FFF9ED] font-bold mb-4">
           Save More with Bulk Orders
         </h2>

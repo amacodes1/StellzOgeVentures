@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { BuildingIcon, UsersIcon, TruckIcon, BadgePercentIcon } from 'lucide-react';
 const AboutPage: React.FC = () => {
-  return <div className="bg-gray-50">
+  return (
+    <div className="bg-gray-50">
       {/* Hero Section */}
       <section className="bg-emerald-800 text-white py-16">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl font-bold mb-6">About WholesalePro</h1>
             <p className="text-xl mb-8">
@@ -18,7 +19,7 @@ const AboutPage: React.FC = () => {
       </section>
       {/* Our Story */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
@@ -41,14 +42,18 @@ const AboutPage: React.FC = () => {
               </p>
             </div>
             <div>
-              <img src="https://images.unsplash.com/photo-1542744173-8659d8bde375?q=80&w=1000&auto=format&fit=crop" alt="WholesalePro office" className="rounded-lg shadow-xl" />
+              <img
+                src="https://images.unsplash.com/photo-1542744173-8659d8bde375?q=80&w=1000&auto=format&fit=crop"
+                alt="WholesalePro office"
+                className="rounded-lg shadow-xl"
+              />
             </div>
           </div>
         </div>
       </section>
       {/* Our Values */}
       <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Our Values</h2>
             <p className="text-gray-700">
@@ -102,7 +107,7 @@ const AboutPage: React.FC = () => {
       </section>
       {/* Team Section */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">
               Meet Our Leadership Team
@@ -115,7 +120,11 @@ const AboutPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-64 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop" alt="CEO" className="w-full h-full object-cover" />
+                <img
+                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop"
+                  alt="CEO"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="p-6 text-center">
                 <h3 className="text-xl font-semibold mb-1">
@@ -131,7 +140,11 @@ const AboutPage: React.FC = () => {
             </div>
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-64 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop" alt="COO" className="w-full h-full object-cover" />
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop"
+                  alt="COO"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="p-6 text-center">
                 <h3 className="text-xl font-semibold mb-1">Amina Ibrahim</h3>
@@ -146,7 +159,11 @@ const AboutPage: React.FC = () => {
             </div>
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-64 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop" alt="CTO" className="w-full h-full object-cover" />
+                <img
+                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop"
+                  alt="CTO"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="p-6 text-center">
                 <h3 className="text-xl font-semibold mb-1">Chinedu Okonkwo</h3>
@@ -163,8 +180,8 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
       {/* Call to Action */}
-      <section className="py-16 bg-emerald-800 text-white">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-16 bg-[#FFF9ED] text-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">
             Ready to Partner with WholesalePro?
           </h2>
@@ -176,12 +193,13 @@ const AboutPage: React.FC = () => {
             <Button variant="secondary" size="lg">
               <Link to="/shop">Browse Our Products</Link>
             </Button>
-            <Button variant="white-outline" size="lg">
+            <Button variant="outline" size="lg">
               <Link to="/contact">Contact Our Team</Link>
             </Button>
           </div>
         </div>
       </section>
-    </div>;
+    </div>
+  );
 };
 export default AboutPage;
