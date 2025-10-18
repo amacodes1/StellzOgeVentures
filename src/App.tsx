@@ -17,7 +17,7 @@ import Dashboard from "./screens/Dashboard";
 import Profile from "./screens/Profile";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
-import Orders from "./screens/Orders";
+import OrderHistory from "./screens/OrderHistory";
 import Wishlist from "./screens/Wishlist";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AdminRoute from "./components/auth/AdminRoute";
@@ -47,7 +47,7 @@ export function App() {
               <Route path="/account/*" element={<AccountPage />}>
                 <Route index element={<Dashboard />} />
                 <Route path="profile" element={<Profile />} />
-                <Route path="orders" element={<Orders />} />
+                <Route path="order-history" element={<OrderHistory />} />
                 <Route path="wishlist" element={<Wishlist />} />
               </Route>
             </Route>

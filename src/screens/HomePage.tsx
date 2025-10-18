@@ -13,8 +13,18 @@ const HomePage: React.FC = () => {
       <HeroSection />
       <CategoriesSection />
       <RecentProductsSection />
-      <CategoryProductsSection categoryName="Electronics" backgroundColor="bg-white" />
-      <CategoryProductsSection categoryName="Office Furniture" backgroundColor="bg-gray-50" />
+      <CategoryProductsSection
+        categoryName="Biscuit"
+        backgroundColor="bg-white"
+      />
+      <CategoryProductsSection
+        categoryName="Chocolate"
+        backgroundColor="bg-white"
+      />
+      <CategoryProductsSection
+        categoryName="Milk"
+        backgroundColor="bg-gray-50"
+      />
       <BulkPricingBanner />
       <BenefitsSection />
       <CallToActionSection />

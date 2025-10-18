@@ -54,7 +54,7 @@ const AccountPage: React.FC = () => {
                   </li>
                   <li>
                     <Link
-                      to="/account/orders"
+                      to="/account/order-history"
                       className="flex items-center px-4 py-2 rounded-md hover:bg-gray-100"
                     >
                       <ShoppingBagIcon className="h-5 w-5 mr-3 text-gray-500" />

@@ -5,10 +5,12 @@ import { RootState } from '../../store/store';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  ShoppingBagIcon,
-  ComputerIcon,
-  FileTextIcon,
-  ClipboardIcon,
+  CoffeeIcon,
+  GlassWaterIcon,
+  HeartIcon,
+  CircleIcon,
+  FlameIcon,
+  SparklesIcon,
 } from 'lucide-react';
 
 const CategoriesSection: React.FC = () => {
@@ -45,40 +47,40 @@ const CategoriesSection: React.FC = () => {
   
   const categories = [
     {
-      name: "Office Furniture",
-      icon: <ShoppingBagIcon className="h-8 w-8" />,
-      count: products.filter((p) => p.category === "Office Furniture").length,
+      name: "Chocolate",
+      icon: <CoffeeIcon className="h-8 w-8" />,
+      count: products.filter((p) => p.category === "Chocolate").length,
+      color: "bg-amber-100",
+    },
+    {
+      name: "Milk",
+      icon: <GlassWaterIcon className="h-8 w-8" />,
+      count: products.filter((p) => p.category === "Milk").length,
       color: "bg-blue-100",
     },
     {
-      name: "Electronics",
-      icon: <ComputerIcon className="h-8 w-8" />,
-      count: products.filter((p) => p.category === "Electronics").length,
-      color: "bg-fuchsia-100",
-    },
-    {
-      name: "Office Supplies",
-      icon: <FileTextIcon className="h-8 w-8" />,
-      count: products.filter((p) => p.category === "Office Supplies").length,
-      color: "bg-emerald-100",
-    },
-    {
-      name: "Office Accessories",
-      icon: <ClipboardIcon className="h-8 w-8" />,
-      count: products.filter((p) => p.category === "Office Accessories").length,
-      color: "bg-orange-100",
-    },
-    {
-      name: "Stationery",
-      icon: <FileTextIcon className="h-8 w-8" />,
-      count: 25,
+      name: "Sweet",
+      icon: <HeartIcon className="h-8 w-8" />,
+      count: products.filter((p) => p.category === "Sweet").length,
       color: "bg-pink-100",
     },
     {
-      name: "Storage",
-      icon: <ShoppingBagIcon className="h-8 w-8" />,
-      count: 18,
-      color: "bg-indigo-100",
+      name: "Biscuit",
+      icon: <CircleIcon className="h-8 w-8" />,
+      count: products.filter((p) => p.category === "Biscuit").length,
+      color: "bg-orange-100",
+    },
+    {
+      name: "Oil",
+      icon: <FlameIcon className="h-8 w-8" />,
+      count: products.filter((p) => p.category === "Oil").length,
+      color: "bg-yellow-100",
+    },
+    {
+      name: "Sugar",
+      icon: <SparklesIcon className="h-8 w-8" />,
+      count: products.filter((p) => p.category === "Sugar").length,
+      color: "bg-purple-100",
     },
   ];
 

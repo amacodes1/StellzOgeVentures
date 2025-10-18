@@ -26,7 +26,7 @@ const ConfirmationStep: React.FC<ConfirmationStepProps> = ({ orderId }) => {
       </div>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <Button variant="primary">
-          <Link to="/account/orders">View Order</Link>
+          <Link to="/account/order-history">View Order</Link>
         </Button>
         <Button variant="outline">
           <Link to="/shop">Continue Shopping</Link>

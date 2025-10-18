@@ -8,7 +8,7 @@ interface Product {
     tier: string;
     price: number;
   }[];
-  category: string;
+  category: 'Chocolate' | 'Milk' | 'Sweet' | 'Biscuit' | 'Oil' | 'Sugar';
   brand: string;
   images: string[];
   stock: number;
@@ -56,152 +56,324 @@ const initialState: ProductState = {
   searchTerm: ''
 };
 // Mock products data
-const mockProducts: Product[] = [{
-  id: '1',
-  name: 'Premium Office Chair',
-  description: 'Ergonomic office chair with lumbar support and adjustable height.',
-  price: 249.99,
-  bulkPrices: [{
-    tier: '1-9',
-    price: 249.99
-  }, {
-    tier: '10-49',
-    price: 224.99
-  }, {
-    tier: '50+',
-    price: 199.99
-  }],
-  category: 'Office Furniture',
-  brand: 'ErgoMax',
-  images: ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop', 'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1000&auto=format&fit=crop'],
-  stock: 120,
-  minOrderQuantity: 1,
-  featured: true,
-  rating: 4.8,
-  reviews: [{
-    id: 'r1',
-    user: 'John D.',
-    rating: 5,
-    comment: 'Best office chair I have ever used. Great support for long working hours.',
-    date: '2023-11-15'
-  }, {
-    id: 'r2',
-    user: 'Sarah M.',
-    rating: 4.5,
-    comment: 'Very comfortable and easy to assemble. Would recommend.',
-    date: '2023-10-28'
-  }]
-}, {
-  id: '2',
-  name: 'Executive Desk',
-  description: 'Spacious executive desk with drawers and cable management system.',
-  price: 599.99,
-  bulkPrices: [{
-    tier: '1-5',
-    price: 599.99
-  }, {
-    tier: '6-15',
-    price: 549.99
-  }, {
-    tier: '16+',
-    price: 499.99
-  }],
-  category: 'Office Furniture',
-  brand: 'OfficePro',
-  images: ['https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=1000&auto=format&fit=crop', 'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?q=80&w=1000&auto=format&fit=crop'],
-  stock: 45,
-  minOrderQuantity: 1,
-  featured: true,
-  rating: 4.6
-}, {
-  id: '3',
-  name: 'LED Desk Lamp',
-  description: 'Adjustable LED desk lamp with multiple brightness settings and USB charging port.',
-  price: 79.99,
-  bulkPrices: [{
-    tier: '1-19',
-    price: 79.99
-  }, {
-    tier: '20-99',
-    price: 69.99
-  }, {
-    tier: '100+',
-    price: 59.99
-  }],
-  category: 'Office Accessories',
-  brand: 'LightPro',
-  images: ['https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop', 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?q=80&w=1000&auto=format&fit=crop'],
-  stock: 350,
-  minOrderQuantity: 5,
-  featured: false,
-  rating: 4.5
-}, {
-  id: '4',
-  name: 'Wireless Keyboard and Mouse Combo',
-  description: 'Premium wireless keyboard and mouse set with long battery life.',
-  price: 129.99,
-  bulkPrices: [{
-    tier: '1-19',
-    price: 129.99
-  }, {
-    tier: '20-99',
-    price: 114.99
-  }, {
-    tier: '100+',
-    price: 99.99
-  }],
-  category: 'Electronics',
-  brand: 'TechGear',
-  images: ['https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=1000&auto=format&fit=crop', 'https://images.unsplash.com/photo-1563191911-e65f8655ebf9?q=80&w=1000&auto=format&fit=crop'],
-  stock: 280,
-  minOrderQuantity: 2,
-  featured: true,
-  rating: 4.7
-}, {
-  id: '5',
-  name: 'Office Supply Kit',
-  description: 'Complete office supply kit with staplers, paper clips, pens, and more.',
-  price: 49.99,
-  bulkPrices: [{
-    tier: '1-9',
-    price: 49.99
-  }, {
-    tier: '10-49',
-    price: 44.99
-  }, {
-    tier: '50+',
-    price: 39.99
-  }],
-  category: 'Office Supplies',
-  brand: 'SupplyMaster',
-  images: ['https://images.unsplash.com/photo-1583521214690-73421a1829a9?q=80&w=1000&auto=format&fit=crop', 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=1000&auto=format&fit=crop'],
-  stock: 500,
-  minOrderQuantity: 3,
-  featured: false,
-  rating: 4.3
-}, {
-  id: '6',
-  name: 'Conference Table',
-  description: 'Large conference table for team meetings and presentations.',
-  price: 1299.99,
-  bulkPrices: [{
-    tier: '1-2',
-    price: 1299.99
-  }, {
-    tier: '3-5',
-    price: 1199.99
-  }, {
-    tier: '6+',
-    price: 1099.99
-  }],
-  category: 'Office Furniture',
-  brand: 'OfficePro',
-  images: ['https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=1000&auto=format&fit=crop', 'https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=1000&auto=format&fit=crop'],
-  stock: 25,
-  minOrderQuantity: 1,
-  featured: true,
-  rating: 4.9
-}];
+const mockProducts: Product[] = [
+  // Chocolate Products
+  {
+    id: '1',
+    name: 'Bournvita Chocolate Drink',
+    description: 'Nutritious chocolate malt drink powder for energy and growth.',
+    price: 15.99,
+    bulkPrices: [{
+      tier: '1-9',
+      price: 15.99
+    }, {
+      tier: '10-49',
+      price: 14.99
+    }, {
+      tier: '50+',
+      price: 13.99
+    }],
+    category: 'Chocolate',
+    brand: 'Bournvita',
+    images: ['/images/bournvita-chocolate1.webp', '/images/bournvita-chocolate2.webp', '/images/bournvita-chocolate3.webp', '/images/bournvita-chocolate4.png'],
+    stock: 120,
+    minOrderQuantity: 1,
+    featured: true,
+    rating: 4.8
+  },
+  {
+    id: '2',
+    name: 'Milo Chocolate Malt',
+    description: 'Delicious chocolate malt drink with vitamins and minerals.',
+    price: 18.99,
+    bulkPrices: [{
+      tier: '1-9',
+      price: 18.99
+    }, {
+      tier: '10-49',
+      price: 17.99
+    }, {
+      tier: '50+',
+      price: 16.99
+    }],
+    category: 'Chocolate',
+    brand: 'Milo',
+    images: ['/images/milo-chocolate1.webp', '/images/milo-chocolate2.webp', '/images/milo-chocolate3.webp', '/images/milo-chocolate4.webp', '/images/milo-chocolate5.webp'],
+    stock: 85,
+    minOrderQuantity: 1,
+    featured: true,
+    rating: 4.7
+  },
+  {
+    id: '3',
+    name: 'Ovaltine Chocolate',
+    description: 'Classic chocolate malt beverage for the whole family.',
+    price: 16.99,
+    category: 'Chocolate',
+    brand: 'Ovaltine',
+    images: ['/images/ovaltine--chocolate1.webp', '/images/ovaltine-chocolate2.webp', '/images/ovaltine-chocolate3.webp'],
+    stock: 95,
+    minOrderQuantity: 1,
+    featured: false,
+    rating: 4.6
+  },
+  {
+    id: '4',
+    name: 'Cadbury Chocolate',
+    description: 'Premium chocolate bar with rich cocoa flavor.',
+    price: 3.99,
+    category: 'Chocolate',
+    brand: 'Cadbury',
+    images: ['/images/cadbury-chocolate.webp'],
+    stock: 200,
+    minOrderQuantity: 5,
+    featured: true,
+    rating: 4.9
+  },
+  {
+    id: '5',
+    name: 'Cowbell Chocolate Drink',
+    description: 'Creamy chocolate flavored milk drink.',
+    price: 12.99,
+    category: 'Chocolate',
+    brand: 'Cowbell',
+    images: ['/images/cowbell-chocolate.webp', '/images/cowbell-chocolate2.webp', '/images/cowbell-chocolate3.webp'],
+    stock: 150,
+    minOrderQuantity: 1,
+    featured: false,
+    rating: 4.5
+  },
+  // Milk Products
+  {
+    id: '6',
+    name: 'Peak Milk Powder',
+    description: 'Premium quality powdered milk for daily nutrition.',
+    price: 25.99,
+    bulkPrices: [{
+      tier: '1-5',
+      price: 25.99
+    }, {
+      tier: '6-15',
+      price: 24.99
+    }, {
+      tier: '16+',
+      price: 23.99
+    }],
+    category: 'Milk',
+    brand: 'Peak',
+    images: ['/images/peak-milk1.webp', '/images/peak-milk2.webp', '/images/peak-milk3.webp', '/images/peak-milk4.webp'],
+    stock: 75,
+    minOrderQuantity: 1,
+    featured: true,
+    rating: 4.8
+  },
+  {
+    id: '7',
+    name: 'Dano Milk',
+    description: 'Instant full cream milk powder for the whole family.',
+    price: 22.99,
+    category: 'Milk',
+    brand: 'Dano',
+    images: ['/images/dano-milk1.webp', '/images/dano-milk2.webp'],
+    stock: 90,
+    minOrderQuantity: 1,
+    featured: true,
+    rating: 4.7
+  },
+  {
+    id: '8',
+    name: 'Cowbell Milk',
+    description: 'Rich and creamy powdered milk for everyday use.',
+    price: 24.99,
+    category: 'Milk',
+    brand: 'Cowbell',
+    images: ['/images/cowbell-milk1.webp', '/images/cowbell-milk2.webp', '/images/cowbell-milk3.webp'],
+    stock: 110,
+    minOrderQuantity: 1,
+    featured: false,
+    rating: 4.6
+  },
+  // Sweet Products
+  {
+    id: '9',
+    name: '3 Crowns Milk',
+    description: 'Rich and creamy Milk for everyone.',
+    price: 8.99,
+    category: 'Milk',
+    brand: '3 Crowns',
+    images: ['/images/3crowns-sweet1.webp', '/images/3crowns-sweet2.webp', '/images/3crowns-sweet3.webp'],
+    stock: 180,
+    minOrderQuantity: 2,
+    featured: false,
+    rating: 4.4
+  },
+  {
+    id: '10',
+    name: 'Buttermint Sweet',
+    description: 'Classic butter mint candies with smooth texture.',
+    price: 6.99,
+    category: 'Sweet',
+    brand: 'Buttermint',
+    images: ['/images/buttermint-sweet1.webp', '/images/buttermint-sweet2.webp'],
+    stock: 220,
+    minOrderQuantity: 3,
+    featured: true,
+    rating: 4.5
+  },
+  {
+    id: '11',
+    name: 'Splash Sweet',
+    description: 'Refreshing fruit-flavored sweets.',
+    price: 7.99,
+    category: 'Sweet',
+    brand: 'Splash',
+    images: ['/images/splash-sweet1.webp', '/images/splash-sweet2.webp'],
+    stock: 160,
+    minOrderQuantity: 2,
+    featured: false,
+    rating: 4.3
+  },
+  {
+    id: '12',
+    name: 'Tom Tom Sweet',
+    description: 'Popular menthol sweets for fresh breath.',
+    price: 5.99,
+    category: 'Sweet',
+    brand: 'Tom Tom',
+    images: ['/images/tomtom-sweet1.webp', '/images/tomtom-sweet2.webp', '/images/tomtom-sweet3.webp'],
+    stock: 250,
+    minOrderQuantity: 5,
+    featured: true,
+    rating: 4.6
+  },
+  // Biscuit Products
+  {
+    id: '13',
+    name: 'Digestive Biscuits',
+    description: 'Wholesome digestive biscuits perfect for tea time.',
+    price: 9.99,
+    category: 'Biscuit',
+    brand: 'Digestive',
+    images: ['/images/digestive-buiscuit.webp'],
+    stock: 140,
+    minOrderQuantity: 2,
+    featured: true,
+    rating: 4.7
+  },
+  {
+    id: '14',
+    name: 'Noreos Biscuits',
+    description: 'Crunchy cream-filled sandwich biscuits.',
+    price: 11.99,
+    category: 'Biscuit',
+    brand: 'Noreos',
+    images: ['/images/noreos-buiscuit1.webp', '/images/noreos-buiscuit2.webp'],
+    stock: 120,
+    minOrderQuantity: 2,
+    featured: false,
+    rating: 4.5
+  },
+  {
+    id: '15',
+    name: 'Parle-G Biscuits',
+    description: 'Classic glucose biscuits loved by all ages.',
+    price: 8.99,
+    category: 'Biscuit',
+    brand: 'Parle-G',
+    images: ['/images/parle-g-buiscuit.webp'],
+    stock: 200,
+    minOrderQuantity: 3,
+    featured: true,
+    rating: 4.8
+  },
+  {
+    id: '16',
+    name: 'Pure Bliss Biscuits',
+    description: 'Premium quality biscuits with natural ingredients.',
+    price: 12.99,
+    category: 'Biscuit',
+    brand: 'Pure Bliss',
+    images: ['/images/purebliss-buiscuit.webp'],
+    stock: 100,
+    minOrderQuantity: 2,
+    featured: false,
+    rating: 4.6
+  },
+  // Oil Products
+  {
+    id: '17',
+    name: 'Mamador Cooking Oil',
+    description: 'Pure vegetable cooking oil for healthy cooking.',
+    price: 35.99,
+    bulkPrices: [{
+      tier: '1-5',
+      price: 35.99
+    }, {
+      tier: '6-15',
+      price: 34.99
+    }, {
+      tier: '16+',
+      price: 33.99
+    }],
+    category: 'Oil',
+    brand: 'Mamador',
+    images: ['/images/mamador-oil1.webp', '/images/mamador-oil2.webp', '/images/mamador-oil3.webp'],
+    stock: 60,
+    minOrderQuantity: 1,
+    featured: true,
+    rating: 4.7
+  },
+  {
+    id: '18',
+    name: 'Power Oil',
+    description: 'High-quality cooking oil for all your culinary needs.',
+    price: 32.99,
+    category: 'Oil',
+    brand: 'Power',
+    images: ['/images/pwer-oil1.webp', '/images/power-oil2.webp', '/images/power-oil3.webp', '/images/power-oil4.webp'],
+    stock: 80,
+    minOrderQuantity: 1,
+    featured: false,
+    rating: 4.5
+  },
+  // Sugar Products
+  {
+    id: '19',
+    name: 'Dangote Sugar',
+    description: 'Premium white granulated sugar for sweetening.',
+    price: 28.99,
+    bulkPrices: [{
+      tier: '1-10',
+      price: 28.99
+    }, {
+      tier: '11-25',
+      price: 27.99
+    }, {
+      tier: '26+',
+      price: 26.99
+    }],
+    category: 'Sugar',
+    brand: 'Dangote',
+    images: ['/images/dangote-sugar1.webp', '/images/dangote-sugar2.webp'],
+    stock: 150,
+    minOrderQuantity: 1,
+    featured: true,
+    rating: 4.8
+  },
+  {
+    id: '20',
+    name: 'Louis Sugar',
+    description: 'Fine quality sugar for baking and cooking.',
+    price: 26.99,
+    category: 'Sugar',
+    brand: 'Louis',
+    images: ['/images/louis-sugar1.webp', '/images/louis-sugar2.webp'],
+    stock: 120,
+    minOrderQuantity: 1,
+    featured: false,
+    rating: 4.6
+  }
+];
 const productSlice = createSlice({
   name: 'product',
   initialState: {
