@@ -3,7 +3,7 @@ import { authService } from './authService';
 // Simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 // Mock orders database
-let mockOrders: Order[] = [];
+const mockOrders: Order[] = [];
 export const orderService = {
   getOrders: async () => {
     await delay(500);

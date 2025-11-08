@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../store/store";
+import { RootState, AppDispatch } from "../store/store";
 import { createOrder } from "../store/slices/orderSlice";
 import Button from "../components/ui/Button";
 import { AlertCircleIcon } from "lucide-react";
@@ -14,7 +14,7 @@ import ConfirmationStep from "../components/checkout/ConfirmationStep";
 import OrderSummary from "../components/checkout/OrderSummary";
 import { FormData } from "../types/checkout";
 const CheckoutPage: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { items, subtotal, discount, shipping, total } = useSelector(
     (state: RootState) => state.cart
   );
@@ -131,11 +131,15 @@ const CheckoutPage: React.FC = () => {
         orderNotes: formData.orderNotes,
       };
       // Dispatch create order action
-      await dispatch(createOrder(orderData) as any);
-      // Show success toast
-      toast.success("Order placed successfully!");
-      // Move to confirmation step
-      setStep(4);
+      const result = await dispatch(createOrder(orderData));
+      if (createOrder.fulfilled.match(result)) {
+        // Show success toast
+        toast.success("Order placed successfully!");
+        // Move to confirmation step
+        setStep(4);
+      } else {
+        throw new Error("Order creation failed");
+      }
     } catch (error) {
       console.error("Order submission error:", error);
       toast.error("Failed to place order. Please try again.");
@@ -172,49 +176,54 @@ const CheckoutPage: React.FC = () => {
             <span>{error}</span>
           </div>
         )}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Checkout Form */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <form onSubmit={handleSubmit}>
-                {step === 1 && (
-                  <CustomerInfoStep
-                    formData={formData}
-                    handleChange={handleChange}
-                    nextStep={nextStep}
-                    prevStep={prevStep}
-                  />
-                )}
-                {step === 2 && (
-                  <ShippingStep
-                    formData={formData}
-                    handleChange={handleChange}
-                    nextStep={nextStep}
-                    prevStep={prevStep}
-                  />
-                )}
-                {step === 3 && (
-                  <PaymentStep
-                    formData={formData}
-                    handleChange={handleChange}
-                    nextStep={nextStep}
-                    prevStep={prevStep}
-                    loading={loading}
-                    onSubmit={submitOrder}
-                  />
-                )}
-                {step === 4 && (
-                  <ConfirmationStep orderId={orderId} />
-                )}
-              </form>
+        {step === 4 ? (
+          <div className="flex justify-center">
+            <div className="max-w-2xl w-full">
+              <div className="bg-white rounded-lg shadow-md p-8">
+                <ConfirmationStep orderId={orderId} />
+              </div>
             </div>
           </div>
-          {step < 4 && (
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Checkout Form */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <form onSubmit={handleSubmit}>
+                  {step === 1 && (
+                    <CustomerInfoStep
+                      formData={formData}
+                      handleChange={handleChange}
+                      nextStep={nextStep}
+                      prevStep={prevStep}
+                    />
+                  )}
+                  {step === 2 && (
+                    <ShippingStep
+                      formData={formData}
+                      handleChange={handleChange}
+                      nextStep={nextStep}
+                      prevStep={prevStep}
+                    />
+                  )}
+                  {step === 3 && (
+                    <PaymentStep
+                      formData={formData}
+                      handleChange={handleChange}
+                      nextStep={nextStep}
+                      prevStep={prevStep}
+                      loading={loading}
+                      onSubmit={submitOrder}
+                    />
+                  )}
+                </form>
+              </div>
+            </div>
             <div className="lg:col-span-1">
               <OrderSummary />
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

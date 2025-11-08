@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { orderService } from '../../services/orderService';
-import { notificationService } from '../../utils/notifications';
-import { Address } from '../../types';
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { orderService } from "../../services/orderService";
+import { notificationService } from "../../utils/notifications";
+import { Address } from "../../types/types";
 
 interface OrderItem {
   id: string;
@@ -19,9 +19,9 @@ export interface Order {
   shipping: number;
   tax: number;
   total: number;
-  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   paymentMethod: string;
-  paymentStatus: 'pending' | 'paid' | 'failed';
+  paymentStatus: "pending" | "paid" | "failed";
   billingAddress: Address;
   shippingAddress: Address;
   sameAsBilling: boolean;
@@ -41,67 +41,82 @@ const initialState: OrderState = {
   orders: [],
   currentOrder: null,
   loading: false,
-  error: null
+  error: null,
 };
 
 // Async thunks
-export const fetchOrders = createAsyncThunk('order/fetchOrders', async (_, {
-  rejectWithValue
-}) => {
-  try {
-    const orders = await orderService.getOrders();
-    return orders;
-  } catch (error: any) {
-    return rejectWithValue(error.message || 'Failed to fetch orders');
-  }
-});
-export const fetchOrderById = createAsyncThunk('order/fetchOrderById', async (orderId: string, {
-  rejectWithValue
-}) => {
-  try {
-    const order = await orderService.getOrderById(orderId);
-    return order;
-  } catch (error: any) {
-    return rejectWithValue(error.message || 'Failed to fetch order');
-  }
-});
-export const createOrder = createAsyncThunk('order/createOrder', async (orderData: Partial<Order>, {
-  rejectWithValue
-}) => {
-  try {
-    const newOrder = await orderService.createOrder(orderData);
-    // Send confirmation email
-    if (newOrder.email) {
-      await notificationService.sendOrderConfirmation(newOrder, newOrder.email);
+export const fetchOrders = createAsyncThunk(
+  "order/fetchOrders",
+  async (_, { rejectWithValue }) => {
+    try {
+      const orders = await orderService.getOrders();
+      return orders;
+    } catch (error: any) {
+      return rejectWithValue(error.message || "Failed to fetch orders");
     }
-    return newOrder;
-  } catch (error: any) {
-    return rejectWithValue(error.message || 'Failed to create order');
   }
-});
-export const updateOrderStatus = createAsyncThunk('order/updateOrderStatus', async ({
-  orderId,
-  status
-}: {
-  orderId: string;
-  status: Order['status'];
-}, {
-  rejectWithValue,
-  getState
-}) => {
-  try {
-    const updatedOrder = await orderService.updateOrderStatus(orderId, status);
-    // Send notification about status update
-    if (updatedOrder.email) {
-      await notificationService.sendOrderStatusUpdate(updatedOrder, updatedOrder.email);
+);
+export const fetchOrderById = createAsyncThunk(
+  "order/fetchOrderById",
+  async (orderId: string, { rejectWithValue }) => {
+    try {
+      const order = await orderService.getOrderById(orderId);
+      return order;
+    } catch (error: any) {
+      return rejectWithValue(error.message || "Failed to fetch order");
     }
-    return updatedOrder;
-  } catch (error: any) {
-    return rejectWithValue(error.message || 'Failed to update order status');
   }
-});
+);
+export const createOrder = createAsyncThunk(
+  "order/createOrder",
+  async (orderData: Partial<Order>, { rejectWithValue }) => {
+    try {
+      const newOrder = await orderService.createOrder(orderData);
+      // Send confirmation email
+      if (newOrder.email) {
+        await notificationService.sendOrderConfirmation(
+          newOrder,
+          newOrder.email
+        );
+      }
+      return newOrder;
+    } catch (error: any) {
+      return rejectWithValue(error.message || "Failed to create order");
+    }
+  }
+);
+export const updateOrderStatus = createAsyncThunk(
+  "order/updateOrderStatus",
+  async (
+    {
+      orderId,
+      status,
+    }: {
+      orderId: string;
+      status: Order["status"];
+    },
+    { rejectWithValue, getState }
+  ) => {
+    try {
+      const updatedOrder = await orderService.updateOrderStatus(
+        orderId,
+        status
+      );
+      // Send notification about status update
+      if (updatedOrder.email) {
+        await notificationService.sendOrderStatusUpdate(
+          updatedOrder,
+          updatedOrder.email
+        );
+      }
+      return updatedOrder;
+    } catch (error: any) {
+      return rejectWithValue(error.message || "Failed to update order status");
+    }
+  }
+);
 const orderSlice = createSlice({
-  name: 'order',
+  name: "order",
   initialState,
   reducers: {
     setOrders: (state, action: PayloadAction<Order[]>) => {
@@ -110,7 +125,7 @@ const orderSlice = createSlice({
     setCurrentOrder: (state, action: PayloadAction<Order>) => {
       state.currentOrder = action.payload;
     },
-    clearCurrentOrder: state => {
+    clearCurrentOrder: (state) => {
       state.currentOrder = null;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
@@ -118,11 +133,11 @@ const orderSlice = createSlice({
     },
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
-    }
+    },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     // Fetch orders
-    builder.addCase(fetchOrders.pending, state => {
+    builder.addCase(fetchOrders.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
@@ -136,7 +151,7 @@ const orderSlice = createSlice({
     });
 
     // Fetch order by ID
-    builder.addCase(fetchOrderById.pending, state => {
+    builder.addCase(fetchOrderById.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
@@ -150,7 +165,7 @@ const orderSlice = createSlice({
     });
 
     // Create order
-    builder.addCase(createOrder.pending, state => {
+    builder.addCase(createOrder.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
@@ -165,12 +180,14 @@ const orderSlice = createSlice({
     });
 
     // Update order status
-    builder.addCase(updateOrderStatus.pending, state => {
+    builder.addCase(updateOrderStatus.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
     builder.addCase(updateOrderStatus.fulfilled, (state, action) => {
-      const index = state.orders.findIndex(order => order.id === action.payload.id);
+      const index = state.orders.findIndex(
+        (order) => order.id === action.payload.id
+      );
       if (index !== -1) {
         state.orders[index] = action.payload;
       }
@@ -183,13 +200,13 @@ const orderSlice = createSlice({
       state.loading = false;
       state.error = action.payload as string;
     });
-  }
+  },
 });
 export const {
   setOrders,
   setCurrentOrder,
   clearCurrentOrder,
   setLoading,
-  setError
+  setError,
 } = orderSlice.actions;
 export default orderSlice.reducer;
